@@ -1,25 +1,26 @@
 const inquirer = require("inquirer");
 const path = require("path");
-// var mysql = require("mysql");
+const consoleTable = require("console.table");
+var mysql = require("mysql");
+const orm = require("orm");
 
-// var connection = mysql.createConnection({
-//   host: "localhost",
+var connection = mysql.createConnection({
+  host: "localhost",
 
-//   // Your port; if not 3306
-//   port: 3306,
+  // Your port; if not 3306
+  port: 3306,
 
-//   // Your username
-//   user: "root",
+  // Your username
+  user: "root",
 
-//   // Your password
-//   password: "root",
-//   database: "employee_TrackerDB"
-// });
+  // Your password
+  password: "root",
+  database: "employee_TrackerDB"
+});
 
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   runSearch();
-// });
+connection.connect(function(err) {
+  if (err) throw err;
+});
 
 const collectInputs = async (inputs = []) => {
   const prompts = [
@@ -39,9 +40,10 @@ const collectInputs = async (inputs = []) => {
       message: "View by:",
       choices: ["Department", "Role", "Employee"],
       when: function(answers) {
-        const roleSpecific =
+        const viewOptions =
           answers.options == "VIEW: Department, Role, or Employee";
-        return roleSpecific;
+
+        return viewOptions;
       }
     },
     {
@@ -50,9 +52,8 @@ const collectInputs = async (inputs = []) => {
       message: "Add a new:",
       choices: ["Department", "Role", "Employee"],
       when: function(answers) {
-        const roleSpecific =
-          answers.options == "ADD: Department, Role, Employee";
-        return roleSpecific;
+        const addOptions = answers.options == "ADD: Department, Role, Employee";
+        return addOptions;
       }
     },
     {
@@ -61,8 +62,8 @@ const collectInputs = async (inputs = []) => {
       message: "Update an Employees role",
       choices: ["A", "B", "C"],
       when: function(answers) {
-        const roleSpecific = answers.options == "UPDATE: Employee role";
-        return roleSpecific;
+        const updateOptions = answers.options == "UPDATE: Employee role";
+        return updateOptions;
       }
     },
     {
@@ -76,52 +77,30 @@ const collectInputs = async (inputs = []) => {
   const { again, ...answers } = await inquirer.prompt(prompts);
   const newInputs = [...inputs, answers];
   return again ? collectInputs(newInputs) : newInputs;
+  
 };
 
 const generate = async () => {
-  const employees = await collectInputs();
-  console.log(employees);
-
-  var employeeObjects = [];
-  employees.forEach(employee => {
-    switch (employee.role) {
-      case "Manager":
-        employeeObjects.push(
-          new Manager(
-            employee.name,
-            employee.id,
-            employee.email,
-            employee.officeNumber
-          )
-        );
-        break;
-      case "Engineer":
-        employeeObjects.push(
-          new Engineer(
-            employee.name,
-            employee.id,
-            employee.email,
-            employee.github
-          )
-        );
-        break;
-      case "Employee":
-        employeeObjects.push(
-          new Employee(employee.name, employee.id, employee.email)
-        );
-        break;
-      case "Intern":
-        employeeObjects.push(
-          new Intern(
-            employee.name,
-            employee.id,
-            employee.email,
-            employee.school
-          )
-        );
-        break;
-    }
+  const inputs = await collectInputs();
+  console.log(inputs);
+  
   });
 };
 
 generate();
+
+// V I E W
+
+// SELECT * FROM `department`
+// SELECT * FROM `role`
+// SELECT * FROM `employee`
+
+// function viewDepartments() {
+//   var query = "SELECT * FROM `department`";
+//   orm.connection.query(query, (err, result) => {
+//     consoleTable(result);
+//   });
+// }
+
+
+
