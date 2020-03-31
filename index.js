@@ -14,18 +14,18 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "root",
-  database: "employee_TrackerDB"
+  database: "employeeTracker_DB"
 });
 
 connection.connect(function(err) {
   if (err) throw err;
 });
 
-runSearch();
+startSearch();
 
 //RUN AND REPEAT SEARCH FUNCTIONS
 
-function runSearch() {
+function startSearch() {
   inquirer
     .prompt({
       name: "mainQuestions",
@@ -66,7 +66,7 @@ const repeatSearch = function(answer) {
       switch (answer.again) {
         case true:
           console.log("TRUE");
-          runSearch();
+          startSearch();
           break;
 
         case false:
@@ -93,17 +93,17 @@ const viewByQuestions = function(answer) {
       switch (answer.viewByQuestions) {
         case "VIEW: All Departments":
           console.log("VIEW: All Departments");
-          repeatSearch();
+          viewDepartment();
           break;
 
         case "VIEW: All Roles":
           console.log("VIEW: All Roles");
-          repeatSearch();
+          viewRole();
           break;
 
         case "VIEW: All Employees":
           console.log("VIEW: All Employees");
-          repeatSearch();
+          viewEmployee();
           break;
       }
     });
@@ -121,18 +121,95 @@ const addToQuestions = function(answer) {
       switch (answer.addToQuestions) {
         case "ADD: A Department":
           console.log("ADD: A Department");
-          repeatSearch();
+          addDepartment();
           break;
 
         case "ADD: A Role":
           console.log("ADD: A Role");
-          repeatSearch();
+          addRole();
           break;
 
         case "ADD: An Employee":
           console.log("ADD: An Employee");
-          repeatSearch();
+          addEmployee();
           break;
       }
     });
 };
+
+//FUNCTIONS
+//VIEW FUNCTIONS
+
+function viewDepartment() {
+  connection.query("SELECT * FROM `department`", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    repeatSearch();
+  });
+}
+
+function viewRole() {
+  connection.query("SELECT * FROM `role`", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    repeatSearch();
+  });
+}
+
+function viewEmployee() {
+  connection.query("SELECT * FROM `employee`", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    repeatSearch();
+  });
+}
+
+//ADD FUNCTIONS
+
+function addDepartment() {
+  var query = connection.query(
+    "INSERT INTO `department` SET ?",
+    { name: "CODE TO GET NAME FROM INQUIRER" },
+    function(err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " department inserted!\n");
+      viewDepartment();
+    }
+  );
+  // logs the actual query being run
+  //console.log(query.sql);
+}
+
+function addRole() {
+  var query = connection.query(
+    "INSERT INTO `role` SET ?",
+    {
+      title: "ROLE TITLE FROM INQUIRER",
+      salary: 100
+    },
+    function(err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " role inserted!\n");
+      viewRole();
+    }
+  );
+  // logs the actual query being run
+  //console.log(query.sql);
+}
+
+function addEmployee() {
+  var query = connection.query(
+    "INSERT INTO `employee` SET ?",
+    {
+      first_name: "John",
+      last_name: "Doe"
+    },
+    function(err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " employee inserted!\n");
+      viewEmployee();
+    }
+  );
+  // logs the actual query being run
+  //console.log(query.sql);
+}

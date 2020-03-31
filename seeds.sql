@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS employee_TrackerDB;
+DROP DATABASE IF EXISTS employeeTracker_DB;
 
-CREATE database employee_TrackerDB;
+CREATE database employeeTracker_DB;
 
-USE employee_TrackerDB;
+USE employeeTracker_DB;
 
 CREATE TABLE `department` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -25,15 +25,7 @@ CREATE TABLE `employee` (
     PRIMARY KEY(id)
 );
 
--- SELECT
---     *
--- FROM
---     `department`;
--- SELECT
---     *
--- FROM
---     `role`;
--- SELECT
---     *
--- FROM
---     `employee`;
+-- INSERT INTO `department` (`name`) VALUES ("TEST NAME");
+-- SELECT * FROM department;
+-- SELECT * FROM role;
+-- SELECT * FROM employee;
