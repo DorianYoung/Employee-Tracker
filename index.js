@@ -167,49 +167,76 @@ function viewEmployee() {
 //ADD FUNCTIONS
 
 function addDepartment() {
-  var query = connection.query(
-    "INSERT INTO `department` SET ?",
-    { name: "CODE TO GET NAME FROM INQUIRER" },
-    function(err, res) {
-      if (err) throw err;
-      console.log(res.affectedRows + " department inserted!\n");
+  inquirer
+    .prompt({
+      name: "departmentInput",
+      message: "Please enter department name"
+    })
+    .then(function(res) {
+      var query = connection.query(
+        "INSERT INTO `department` SET ?",
+        { name: res.departmentInput },
+        function(err, res) {
+          if (err) throw err;
+          console.log(res.affectedRows + " department inserted!\n");
+        }
+      );
       viewDepartment();
-    }
-  );
-  // logs the actual query being run
-  //console.log(query.sql);
+    });
 }
 
 function addRole() {
-  var query = connection.query(
-    "INSERT INTO `role` SET ?",
-    {
-      title: "ROLE TITLE FROM INQUIRER",
-      salary: 100
-    },
-    function(err, res) {
-      if (err) throw err;
-      console.log(res.affectedRows + " role inserted!\n");
-      viewRole();
-    }
-  );
-  // logs the actual query being run
-  //console.log(query.sql);
+  inquirer
+    .prompt([
+      {
+        name: "roleInputTitle",
+        message: "Please enter title of role"
+      },
+      {
+        name: "roleInputSalary",
+        message: "Please enter salary of role"
+      }
+    ])
+    .then(function(res) {
+      var query = connection.query(
+        "INSERT INTO `role` SET ?",
+        {
+          title: res.roleInputTitle,
+          salary: res.roleInputSalary
+        },
+        function(err, res) {
+          if (err) throw err;
+          console.log(res.affectedRows + " role inserted!\n");
+          viewRole();
+        }
+      );
+    });
 }
 
 function addEmployee() {
-  var query = connection.query(
-    "INSERT INTO `employee` SET ?",
-    {
-      first_name: "John",
-      last_name: "Doe"
-    },
-    function(err, res) {
-      if (err) throw err;
-      console.log(res.affectedRows + " employee inserted!\n");
-      viewEmployee();
-    }
-  );
-  // logs the actual query being run
-  //console.log(query.sql);
+  inquirer
+    .prompt([
+      {
+        name: "employeeInputFn",
+        message: "Please enter employees first name"
+      },
+      {
+        name: "employeeInputLn",
+        message: "Please enter employees last name"
+      }
+    ])
+    .then(function(res) {
+      var query = connection.query(
+        "INSERT INTO `employee` SET ?",
+        {
+          first_name: res.employeeInputFn,
+          last_name: res.employeeInputLn
+        },
+        function(err, res) {
+          if (err) throw err;
+          console.log(res.affectedRows + " employee inserted!\n");
+          viewEmployee();
+        }
+      );
+    });
 }
