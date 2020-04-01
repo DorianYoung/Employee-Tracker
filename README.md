@@ -51,6 +51,6 @@ N/A
     
 > ## Badges
     
-![Javacript](https://img.shields.io/badge/88%25-yellow)
-![TSQL](https://img.shields.io/badge/12%25-grey)
+![Javacript](https://img.shields.io/badge/Javascript-88%25-yellow)
+![TSQL](https://img.shields.io/badge/TSQL-12%25-grey)
     
