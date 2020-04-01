@@ -4,7 +4,7 @@
 
 
 
-![DorianYoung](https://avatars1.githubusercontent.com/u/58402970?v=4)
+![DorianYoung](https://github.com/DorianYoung/Employee-Tracker/blob/master/eTracker.gif?raw=true)
 
 https://github.com/DorianYoung
     
@@ -26,28 +26,31 @@ https://github.com/DorianYoung
     
     
 > ## Installation
-    
+  ```sh    
+npm i Inquirer   ||   npm i Mysql || npm i Console.Table
+```  
 
     
     
 > ## Usage
-    
+ A command-line application for managing a company's departments/roles/employees using node, inquirer, and MySQL.
 
     
     
 > ## Contributions
-    
+ N/A   
 
     
     
 
 > ## License
-    
+N/A   
 
     
     
     
 > ## Badges
     
-![](https://img.shields.io/badge/-100%25-green)
+![Javacript](https://img.shields.io/badge/88%25-yellow)
+![TSQL](https://img.shields.io/badge/12%25-grey)
     
