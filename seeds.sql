@@ -25,7 +25,9 @@ CREATE TABLE `employee` (
     PRIMARY KEY(id)
 );
 
--- INSERT INTO `department` (`name`) VALUES ("TEST NAME");
+-- INSERT INTO `department` (`name`) VALUES ("DEPARTMENT A");
+-- INSERT INTO `role` (`title`, `salary`) VALUES ("ROLE A", 1000);
+-- INSERT INTO `employee` (`first_name`, `last_name`) VALUES ("John", "Doe");
 -- SELECT * FROM department;
 -- SELECT * FROM role;
 -- SELECT * FROM employee;
